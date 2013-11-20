@@ -153,10 +153,12 @@ public class AdvancedSettingsActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch(msg.what){
 			case 1:
-				Utils.showToast(CONTEXT, "History Cleared");
+				Utils.showToast(CONTEXT, CONTEXT.getResources().getString(
+						R.string.history_clear_toast));
 				break;
 			case 2:
-				Utils.showToast(CONTEXT, "Cookies Cleared");
+				Utils.showToast(CONTEXT, CONTEXT.getResources().getString(
+						R.string.cookies_clear_toast));
 				break;
 			}
 			super.handleMessage(msg);
@@ -422,10 +424,11 @@ public class AdvancedSettingsActivity extends Activity {
 			public void onClick(View v) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						AdvancedSettingsActivity.this); // dialog
-				builder.setTitle("Clear History");
+				builder.setTitle(
+						CONTEXT.getResources().getString(R.string.history_dialog_title));
 				builder.setMessage(
-						"Would you like to clear all browser history?")
-						.setPositiveButton("Yes",
+						CONTEXT.getResources().getString(R.string.history_dialog_message))
+						.setPositiveButton(CONTEXT.getResources().getString(R.string.dialog_button_yes),
 								new DialogInterface.OnClickListener() {
 
 									@Override
@@ -444,7 +447,7 @@ public class AdvancedSettingsActivity extends Activity {
 									}
 
 								})
-						.setNegativeButton("No",
+						.setNegativeButton(CONTEXT.getResources().getString(R.string.dialog_button_no),
 								new DialogInterface.OnClickListener() {
 
 									@Override
@@ -513,10 +516,11 @@ public class AdvancedSettingsActivity extends Activity {
 			public void onClick(View v) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						AdvancedSettingsActivity.this); // dialog
-				builder.setTitle("Clear Cookies");
+				builder.setTitle(
+						CONTEXT.getResources().getString(R.string.cookies_dialog_title));
 				builder.setMessage(
-						"Would you like to clear all browser cookies?")
-						.setPositiveButton("Yes",
+						CONTEXT.getResources().getString(R.string.cookies_dialog_message))
+						.setPositiveButton(CONTEXT.getResources().getString(R.string.dialog_button_yes),
 								new DialogInterface.OnClickListener() {
 
 									@Override
@@ -535,7 +539,7 @@ public class AdvancedSettingsActivity extends Activity {
 									}
 
 								})
-						.setNegativeButton("No",
+						.setNegativeButton(CONTEXT.getResources().getString(R.string.dialog_button_no),
 								new DialogInterface.OnClickListener() {
 
 									@Override
@@ -612,8 +616,14 @@ public class AdvancedSettingsActivity extends Activity {
 			public void onClick(View v) {
 				AlertDialog.Builder picker = new AlertDialog.Builder(
 						AdvancedSettingsActivity.this);
-				picker.setTitle("Text Size");
-				CharSequence[] chars = { "Largest", "Large", "Normal", "Small", "Smallest"};
+				picker.setTitle(CONTEXT.getResources().getString(R.string.text_size_picker_title));
+				CharSequence[] chars = { 
+						CONTEXT.getResources().getString(R.string.text_size_largest),
+						CONTEXT.getResources().getString(R.string.text_size_large),
+						CONTEXT.getResources().getString(R.string.text_size_normal),
+						CONTEXT.getResources().getString(R.string.text_size_small),
+						CONTEXT.getResources().getString(R.string.text_size_smallest)
+						};
 			
 				int n = settings.getInt("textsize", 3);
 
@@ -628,7 +638,7 @@ public class AdvancedSettingsActivity extends Activity {
 								
 								}
 						});
-				picker.setNeutralButton("OK",
+				picker.setNeutralButton(CONTEXT.getResources().getString(R.string.dialog_button_ok),
 						new DialogInterface.OnClickListener() {
 
 							@Override
@@ -696,12 +706,15 @@ public class AdvancedSettingsActivity extends Activity {
 						mCur.moveToNext();
 					}
 				}
-				Utils.showToast(CONTEXT, number + " Bookmarks were imported");
+				Utils.showToast(CONTEXT, CONTEXT.getResources().getQuantityString(
+						R.plurals.bookmarks_number_imported_toast, number, number));
 			} catch (NullPointerException ignored) {
 			}
 		}
 		else{
-			Utils.createInformativeDialog(CONTEXT, "Error", "No browser was detected to import bookmarks from.");
+			Utils.createInformativeDialog(CONTEXT, 
+					CONTEXT.getResources().getString(R.string.bookmarks_import_error_title),
+					CONTEXT.getResources().getString(R.string.bookmarks_import_error_message));
 		}
 	}
 	

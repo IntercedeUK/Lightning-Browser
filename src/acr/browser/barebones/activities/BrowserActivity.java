@@ -100,6 +100,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+@SuppressLint("NewApi")
 @SuppressWarnings("deprecation")
 public class BrowserActivity extends Activity implements OnTouchListener {
 
@@ -251,7 +252,7 @@ public class BrowserActivity extends Activity implements OnTouchListener {
 				}
 			}
 			final TextView title = new TextView(CONTEXT);
-			title.setText("New Tab");
+			title.setText(CONTEXT.getResources().getString(R.string.new_tab_text));
 			if (display) {
 				if (API < 16) {
 					title.setBackgroundDrawable(active);
@@ -300,7 +301,7 @@ public class BrowserActivity extends Activity implements OnTouchListener {
 			title.startAnimation(holo);
 			urlTitle[id] = title;
 
-			urlTitle[id].setText("New Tab");
+			urlTitle[id].setText(CONTEXT.getResources().getString(R.string.new_tab_text));
 
 			if (theUrl != null) {
 				main[id] = generateTab(id, theUrl, display);
@@ -309,7 +310,7 @@ public class BrowserActivity extends Activity implements OnTouchListener {
 			}
 
 		} else {
-			Utils.showToast(CONTEXT, "Max number of tabs reached");
+			Utils.showToast(CONTEXT, CONTEXT.getResources().getString(R.string.tab_maximum_toast));
 		}
 		return id;
 	}
@@ -425,7 +426,8 @@ public class BrowserActivity extends Activity implements OnTouchListener {
 					e.printStackTrace();
 				}
 				if (uBar.isShown()) {
-					currentTabTitle.setText("History");
+					currentTabTitle.setText(
+							CONTEXT.getResources().getString(R.string.history_tab_title));
 					setUrlText("");
 					getUrl.setPadding(tenPad, 0, tenPad, 0);
 				}
@@ -561,10 +563,15 @@ public class BrowserActivity extends Activity implements OnTouchListener {
 			};
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(CONTEXT); // dialog
-			builder.setMessage("What would you like to do with this bookmark?")
-					.setPositiveButton("Rename", dialogClickListener)
-					.setNegativeButton("Open", dialogClickListener)
-					.setNeutralButton("Delete", dialogClickListener).show();
+			builder.setMessage(CONTEXT.getResources().getString(
+							R.string.bookmark_question_title))
+					.setPositiveButton(CONTEXT.getResources().getString(
+							R.string.bookmark_question_button_rename), dialogClickListener)
+					.setNegativeButton(CONTEXT.getResources().getString(
+							R.string.bookmark_question_button_open), dialogClickListener)
+					.setNeutralButton(CONTEXT.getResources().getString(
+							R.string.bookmark_question_button_delete), dialogClickListener)
+					.show();
 		}
 	}
 
@@ -679,12 +686,15 @@ public class BrowserActivity extends Activity implements OnTouchListener {
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							CONTEXT); // dialog
 					builder.setMessage(
-							"What would you like to do with this image?")
-							.setPositiveButton("Open in New Tab",
+							CONTEXT.getResources().getString(R.string.image_question_title))
+							.setPositiveButton(
+									CONTEXT.getResources().getString(R.string.image_question_button_tab),
 									dialogClickListener)
-							.setNegativeButton("Open Normally",
+							.setNegativeButton(
+									CONTEXT.getResources().getString(R.string.image_question_button_normal),
 									dialogClickListener)
-							.setNeutralButton("Download Image",
+							.setNeutralButton(
+									CONTEXT.getResources().getString(R.string.image_question_button_download),
 									dialogClickListener).show();
 
 				} else {
@@ -726,12 +736,16 @@ public class BrowserActivity extends Activity implements OnTouchListener {
 							CONTEXT); // dialog
 					builder.setTitle(result.getExtra())
 							.setMessage(
-									"What do you want to do with this link?")
-							.setPositiveButton("Open in New Tab",
+									CONTEXT.getResources().getString(R.string.link_question_title))
+							.setPositiveButton(
+									CONTEXT.getResources().getString(R.string.link_question_button_tab),
 									dialogClickListener)
-							.setNegativeButton("Open Normally",
+							.setNegativeButton(
+									CONTEXT.getResources().getString(R.string.link_question_button_normal),
 									dialogClickListener)
-							.setNeutralButton("Copy link", dialogClickListener)
+							.setNeutralButton(
+									CONTEXT.getResources().getString(R.string.link_question_button_copy),
+									dialogClickListener)
 							.show();
 				}
 			}
@@ -842,7 +856,7 @@ public class BrowserActivity extends Activity implements OnTouchListener {
 		view.loadUrl("file://" + bookmarkWebPage);
 
 		if (uBar.isShown()) {
-			currentTabTitle.setText("Bookmarks");
+			currentTabTitle.setText(CONTEXT.getResources().getString(R.string.bookmarks_tab_text));
 			setUrlText("");
 			getUrl.setPadding(tenPad, 0, tenPad, 0);
 		}
